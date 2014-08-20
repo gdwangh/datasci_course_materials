@@ -59,14 +59,26 @@ table(pred = predictions3, true = test_set$pop)
 par(mfrow=c(2,3))
 plot(rd$time,rd$fsc_small)
 plot(rd$time, rd$fsc_perp)
-plot(rd$time, rd$fsc_big)
+plot(rd$time, rd$fsc_big) 
 plot(rd$time,rd$pe)
 plot(rd$time,rd$chl_small)
 plot(rd$time,rd$chl_big)
-
 # fsc_big is uncontinuous
-par(mfrow=c(1,1))
-plot(rd$file_id, rd$fsc_big)
+
+# list of fsc_big is short
+unique(rd$fsc_small)
+unique(rd$fsc_perp)
+unique(rd$fsc_big)
+unique(rd$pe)
+unique(rd$chl_small)
+unique(rd$chl_big)
+
+# something wrong in the file 
+library(ggplot2)
+qplot(time,chl_big, data=rd,color=file_id)
+qplot(time,chl_big, data=rd,color=pop)
+qplot(time,chl_big, data=rd,color=pop,facets=.~file_id)
+
 
 clean_train<-train_set[train_set$file_id!=208,]
 clean_test<-test_set[test_set$file_id!=208,]
